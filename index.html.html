@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Will You Be My Brother?</title>
+  <style>
+    body {
+      background: linear-gradient(to bottom right, #ffe6f0, #ffd9ec);
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      text-align: center;
+      padding: 50px;
+      overflow: hidden;
+      position: relative;
+      height: 100vh;
+    }
+
+    h1 {
+      color: #ff69b4;
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+
+    .butterflies {
+      font-size: 2em;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0px); }
+    }
+
+    .bow {
+      font-size: 2em;
+      color: pink;
+    }
+
+    #yesBtn {
+      background-color: #ffb6c1;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1.2em;
+      color: white;
+      border-radius: 30px;
+      cursor: pointer;
+      margin: 10px;
+      z-index: 10;
+    }
+
+    #yesBtn:hover {
+      background-color: #ff69b4;
+    }
+
+    #noBtn {
+      background-color: #ccc;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1.2em;
+      color: white;
+      border-radius: 30px;
+      cursor: pointer;
+      margin: 10px;
+      position: absolute;
+      top: 60%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transition: all 0.3s ease;
+      z-index: 10;
+    }
+
+    #response {
+      margin-top: 30px;
+      font-size: 1.5em;
+      color: #d63384;
+      display: none;
+    }
+
+    .emojiRain {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .emoji {
+      position: absolute;
+      animation: fall 4s linear infinite;
+      font-size: 1.5em;
+    }
+
+    @keyframes fall {
+      0% { top: -50px; }
+      100% { top: 100vh; }
+    }
+
+    @media (max-width: 600px) {
+      #yesBtn, #noBtn {
+        font-size: 1em;
+        padding: 12px 20px;
+      }
+      h1 {
+        font-size: 2em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="emojiRain" id="emojiRain"></div>
+  <div class="butterflies">
+    🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋
+  </div>
+
+  <h1>Will You Be My <span class="bow">🎀</span> Brother <span class="bow">🎀</span>?</h1>
+  <p style="font-size: 1.2em; color: #ff69b4;">Please say yes 😭💖🌈 You can't escape now 😼</p>
+
+  <button id="yesBtn">Yes 💕</button>
+  <button id="noBtn">No 🙃</button>
+
+  <div id="response">Yaaay!! 🎉🎉 Now you are my brother forever 😭💗🦋🎀💖💫</div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const response = document.getElementById("response");
+
+    // Move the No button when hovered or touched
+    function moveNoBtn() {
+      const x = Math.floor(Math.random() * (window.innerWidth - 100));
+      const y = Math.floor(Math.random() * (window.innerHeight - 100));
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+    }
+
+    noBtn.addEventListener("mouseover", moveNoBtn);
+    noBtn.addEventListener("touchstart", moveNoBtn);
+
+    yesBtn.addEventListener("click", () => {
+      response.style.display = "block";
+      rainEmojis();
+    });
+
+    // Make emojis rain when accepted
+    function rainEmojis() {
+      const emojiRain = document.getElementById("emojiRain");
+      for (let i = 0; i < 50; i++) {
+        const emoji = document.createElement("div");
+        emoji.classList.add("emoji");
+        emoji.style.left = `${Math.random() * 100}%`;
+        emoji.textContent = ["🎀", "💖", "🦋", "✨", "💗", "🌸"][Math.floor(Math.random() * 6)];
+        emoji.style.animationDuration = `${Math.random() * 3 + 2}s`;
+        emojiRain.appendChild(emoji);
+
+        setTimeout(() => emoji.remove(), 4000);
+      }
+    }
+  </script>
+</body>
+</html>
